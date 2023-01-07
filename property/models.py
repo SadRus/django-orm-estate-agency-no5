@@ -35,7 +35,6 @@ class Flat(models.Model):
         'Этаж',
         max_length=3,
         help_text='Первый этаж, последний этаж, пятый этаж')
-
     rooms_number = models.IntegerField(
         'Количество комнат в квартире',
         db_index=True)
@@ -44,13 +43,13 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
-
     has_balcony = models.BooleanField(
         'Наличие балкона',
         null=True,
         db_index=True)
+
     active = models.BooleanField('Активно-ли объявление', db_index=True)
- 
+
     construction_year = models.IntegerField(
         'Год постройки здания',
         null=True,
@@ -60,12 +59,14 @@ class Flat(models.Model):
         'Новая-ли постройка',
         null=True,
         blank=True)
-
     liked_by = models.ManyToManyField(
         User,
         related_name='liked_flats',
         blank=True)
-    owner_pure_phone = PhoneNumberField(null=True, blank=True)
+    owner_pure_phone = PhoneNumberField(
+        'Нормализованный номер владельца',
+        null=True,
+        blank=True)
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
