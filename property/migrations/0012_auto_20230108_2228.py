@@ -7,7 +7,7 @@ def edit_owner_apartments(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
 
-    for owner in Owner.objects.all():
+    for owner in Owner.objects.all().iterator():
         flats = Flat.objects.filter(owner=owner.name)
         owner.apartments.set(flats)
         owner.save()

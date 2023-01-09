@@ -5,12 +5,10 @@ from django.db import migrations
 
 def edit_new_building_field(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for apartment in Flat.objects.all():
-        if apartment.construction_year >= 2015:
-            apartment.new_building = True
-        else:
-            apartment.new_building = False
-        apartment.save()
+    Flat.objects.filter(construction_year__gte=2015).update(
+        new_building=True)
+    Flat.objects.filter(construction_year__lt=2015).update(
+        new_building=False)
 
 
 class Migration(migrations.Migration):
