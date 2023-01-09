@@ -69,12 +69,14 @@ class Complaint(models.Model):
         null=True,
         blank=True,
         verbose_name='Кто пожаловался',
+        related_name='complaints',
         on_delete=models.SET_NULL)
     address = models.ForeignKey(
         Flat,
         null=True,
         blank=True,
         verbose_name='Квартира на которую пожаловались',
+        related_name='complaintable_flats',
         on_delete=models.SET_NULL)
     complaint_text = models.TextField(
         'Текст жалобы',
@@ -103,6 +105,7 @@ class Owner(models.Model):
         Flat,
         related_name='owners',
         verbose_name='Квартиры в собственности',
+        blank=True,
         db_index=True)
 
     def __str__(self):
